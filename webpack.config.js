@@ -13,7 +13,7 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-        }
+        },
       },
       {
         test: /\.html$/,
@@ -21,11 +21,12 @@ module.exports = {
           loader: 'html-loader',
         },
       },
-    ]
+    ],
   },
+  devtool: 'eval-source-map',
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './src/assets/index.html',
       filename: './index.html',
     }),
   ],
