@@ -2,6 +2,6 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './js/App';
+import { ReduxApp } from './js/modules/app';
 
-ReactDOM.render(<App />, document.getElementById('container'));
+ReactDOM.render(<ReduxApp />, document.getElementById('container'));
