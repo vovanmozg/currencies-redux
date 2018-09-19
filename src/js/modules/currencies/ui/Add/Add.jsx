@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import AddForm from './AddForm';
 import { add as addAction } from '../../reduxBundle';
 
-const Add = ({ add }) => (<AddForm onSubmit={add} />);
+const Add = ({ addCurrency }) => (<AddForm addCurrency={addCurrency} />);
 
 Add.propTypes = {
-  add: PropTypes.func.isRequired,
+  addCurrency: PropTypes.func.isRequired,
 };
 
 export default connect(
   null,
   dispatch => ({
-    add: value => dispatch(addAction(value)),
+    addCurrency: value => dispatch(addAction(value)),
   }),
 )(Add);

@@ -1,6 +1,26 @@
 import { createStore } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import rootReducer from '../reduxBundle';
 
-const store = createStore(rootReducer);
+const persistConfig = {
+  key: 'app',
+  storage,
+  whitelist: ['currencies'],
+};
 
-export default store;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+/* eslint-disable no-underscore-dangle */
+const store = createStore(
+  persistedReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
+/* eslint-enable */
+
+const persistor = persistStore(store);
+
+export {
+  store,
+  persistor,
+};
