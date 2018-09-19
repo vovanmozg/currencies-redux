@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/vovanmozg/currencies-redux#readme",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "prop-types": "^15.6.2",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
