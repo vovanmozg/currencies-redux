@@ -1,13 +1,22 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Currency from '../Currency';
 
-
 const Currencies = ({ currencies }) => (
   <div>
-    {currencies.map(currency => <Currency {...currency} />)}
+    {Object.entries(currencies).map(currency => <Currency {...currency[1]} />)}
   </div>
 );
+
+Currencies.propTypes = {
+  currencies: PropTypes.objectOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      rate: PropTypes.number,
+    }),
+  ).isRequired,
+};
 
 const ConnectedCurrencies = connect(
   state => ({
