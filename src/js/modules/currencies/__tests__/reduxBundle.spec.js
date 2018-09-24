@@ -1,15 +1,15 @@
-import reduxBundle, { Actions } from '../reduxBundle';
+import { Actions, ratesReducer } from '../reduxBundle';
 import actionData from './__fixtures__/fetchCurrencySuccessAction';
 
 describe('Currencies reducer', () => {
   it('should return the initial state', () => {
-    expect(reduxBundle(undefined, {})).toEqual({});
+    expect(ratesReducer(undefined, {})).toEqual({});
   });
 
   describe('handles ADD and', () => {
     it('adds one item', () => {
       expect(
-        reduxBundle({}, {
+        ratesReducer({}, {
           type: Actions.ADD,
           payload: { name: 'BTC' },
         }),
@@ -20,7 +20,7 @@ describe('Currencies reducer', () => {
 
     it('does not add same item', () => {
       expect(
-        reduxBundle(
+        ratesReducer(
           { BTC: { name: 'BTC' } },
           {
             type: Actions.ADD,
@@ -36,7 +36,7 @@ describe('Currencies reducer', () => {
   describe('handles FETCH_CURRENCY_SUCCESS and', () => {
     it('returns empty with empty state', () => {
       expect(
-        reduxBundle(
+        ratesReducer(
           { BTC: { name: 'BTC' } },
           actionData,
         ),
@@ -50,7 +50,7 @@ describe('Currencies reducer', () => {
 
     it('add rates for existing rates', () => {
       expect(
-        reduxBundle([], actionData),
+        ratesReducer([], actionData),
       ).toEqual({});
     });
   });

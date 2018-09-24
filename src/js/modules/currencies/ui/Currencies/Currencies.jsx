@@ -2,10 +2,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Currency from '../Currency';
+import style from './style.less';
+import { currenciesSelector } from '../../selectors';
 
 const Currencies = ({ currencies }) => (
-  <div>
-    {Object.entries(currencies).map(currency => <Currency {...currency[1]} />)}
+  <div className={style.list}>
+    {Object.entries(currencies).map(currency => (
+      <Currency {...currency[1]} key={currency[1].name} />
+    ))}
   </div>
 );
 
@@ -20,7 +24,7 @@ Currencies.propTypes = {
 
 const ConnectedCurrencies = connect(
   state => ({
-    currencies: state.currencies,
+    currencies: currenciesSelector(state),
   }),
 )(Currencies);
 

@@ -1,6 +1,7 @@
 import { put } from 'redux-saga/effects';
-import { fetchAllCurrencies } from '../../currencies/reduxBundle';
+import { fetchAllCurrencies, updateAutocomplete } from '../reduxBundle';
 
 export default function* onRehydrate() {
   yield put(fetchAllCurrencies());
+  yield put(updateAutocomplete());
 }

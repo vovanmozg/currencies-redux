@@ -1,8 +1,9 @@
 import React from 'react';
 import { Add, Currencies } from '../../currencies';
+import style from './style.less';
 
 const App = () => (
-  <div>
+  <div className={style.container}>
     <Add />
     <Currencies />
   </div>

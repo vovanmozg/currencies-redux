@@ -1,4 +1,5 @@
 import omit from 'lodash/omit';
+import { combineReducers } from 'redux';
 import { ratesApi } from './infrastructure';
 
 export const Actions = {
@@ -8,6 +9,8 @@ export const Actions = {
   FETCH_ALL_CURRENCIES: 'currencies/FETCH_ALL_CURRENCIES',
   FETCH_CURRENCY: 'currencies/FETCH_CURRENCY',
   FETCH_CURRENCY_SUCCESS: 'currencies/FETCH_CURRENCY_SUCCESS',
+  UPDATE_AUTOCOMPLETE: 'currencies/UPDATE_AUTOCOMPLETE',
+  UPDATE_AUTOCOMPLETE_SUCCESS: 'currencies/UPDATE_AUTOCOMPLETE_SUCCESS',
 };
 
 export const add = payload => ({
@@ -39,7 +42,16 @@ export const fetchCurrency = (payload) => {
   };
 };
 
-const currencies = (state = {}, action) => {
+export const updateAutocomplete = () => ({
+  type: Actions.UPDATE_AUTOCOMPLETE,
+  payload: {
+    request: {
+      url: ratesApi.buildNamesUrl(),
+    },
+  },
+});
+
+export const ratesReducer = (state = {}, action) => {
   switch (action.type) {
     case Actions.ADD: {
       return { ...state, ...{ [action.payload.name]: action.payload } };
@@ -66,5 +78,20 @@ const currencies = (state = {}, action) => {
       return state;
   }
 };
+
+export const namesReducer = (state = [], action) => {
+  switch (action.type) {
+    case Actions.UPDATE_AUTOCOMPLETE_SUCCESS: {
+      return ratesApi.decodeNames(action.payload.data);
+    }
+    default:
+      return state;
+  }
+};
+
+const currencies = combineReducers({
+  rates: ratesReducer,
+  names: namesReducer,
+});
 
 export default currencies;
